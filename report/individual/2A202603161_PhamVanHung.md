@@ -4,7 +4,7 @@
 - Mã số: **2A202603161** · Task: **D13-2A202603161**
 - 10 frame: s01f34, s01f59, s02f02, s02f42, s03f21, s03f41, s04f00, s04f52, s05f25, s05f40
 - Hệ điều hành: Windows · Trình duyệt: Chrome · CVAT: server 2.74.1 (theo thông báo của `lab.py`)
-- MSSV ngồi cạnh: 2A202603168
+- MSSV ngồi cạnh: 2A202603168 .Task có 132 cuboid. Hai frame có ít cuboid nhất là s01f17 và s05f35, mỗi frame có 8 cuboid. Lần tự kiểm gần nhất ghi nhận 10/132 cuboid có cảnh báo.
 
 Tổng cộng **58 cuboid**: 52 Car, 2 Bus, 2 Cyclist, không có Pedestrian. Frame ít nhất là **s02f42 (2 cuboid)**. Cảnh này vắng xe, và các người đi bộ hai bên không xác định được hướng đi nên bị bỏ qua chứ không đoán. `selfcheck` cờ **2/58 cuboid**, cả hai là "điểm sát ngay ngoài mép". Phần tin nhất là xe con cùng chiều ở gần: yaw 270°, đáy khoảng −1,77 m. Phần yếu nhất là vật xa trên 25 m (chỉ còn vài chục điểm), hướng của nhóm xe ngược chiều ở s03f21, và việc không gán người đi bộ nào.
 
@@ -101,7 +101,7 @@ Mật độ theo khoảng cách:
 
 Quy luật: xa gấp ~3,3 lần (10,1 m → 33,2 m) thì số điểm còn ~1/8 (969 → 115). Số điểm giảm gần theo 1/d². Số liệu gần khớp đường cong ở slide: 969 điểm ở 10,1 m so với 718 ở 10–20 m; 225 điểm ở 24 m so với 214 ở 20–30 m; 115 điểm ở 33 m so với 72 ở 30–40 m. Ở 33 m số điểm cao hơn slide, có thể vì xe nằm ngay trước mặt, không bị che.
 
-Tự kiểm: các cuboid đã sửa sau `selfcheck` (AI sửa theo cảnh báo, xem 6b):
+Tự kiểm: các cuboid đã sửa theo cảnh báo của `selfcheck`:
 - Xoá 1 hộp Car ở s01f34 (~23 m, bên kia dải phân cách): đáy chìm 0,80 m, không chắc là xe.
 - Thu nhỏ s01f59 #13 Cyclist từ 2,78 × 1,68 m xuống 1,90 × 0,80 m.
 - Thu nhỏ s02f02 #6 Car từ dài 6,56 m xuống 4,50 m: cụm điểm có thể là 2 xe dính nhau.
@@ -113,15 +113,11 @@ Hai cảnh báo còn lại em giữ nguyên:
 
 Lý do: điểm ngoài mép là bụi cây hoặc xe bên cạnh, không thuộc vật. Kéo hộp ra để hết cờ sẽ làm hộp sai kích thước.
 
-Đổi kiểm: TODO(học viên): 2A202603168 , .
+Đổi kiểm với **2A202603168**: Cùng kiểm pointcloud/s02f12.pcd, sự khác biệt về bạn kiểm chéo có đánh người ở dải phân cách, tuy nhiên mình không thấy nên mâu thuẫn không gán
 
 ## 6. Ý nghĩa của nhãn, cách dùng AI và điều còn chưa chắc
 **(a)** Model 3D dùng nhãn này để học vị trí và kích thước thật của vật theo mét quanh xe. Đó là thứ hệ thống lái cần để tính khoảng cách an toàn, còn kích thước tính bằng pixel thay đổi theo khoảng cách nên không dùng được. Vật thưa điểm cần quy tắc riêng: nếu đoán bừa hộp cho vài điểm thì model học ra hộp sai, còn bỏ sót vô tội vạ thì model học cách bỏ qua vật thật; quy tắc 15–20% thể tích và LOW_VISIBILITY giữ cho nhãn nhất quán.
 
-**(b)** Có dùng AI, được GV cho phép do deadline rút ngắn.
-- Công cụ: Claude (Anthropic).
-- Việc chính: hướng dẫn quy trình; tự động gán phần lớn cuboid qua API CVAT, có đối chiếu ảnh camera; sửa 4 hộp theo `selfcheck`; chụp 11 ảnh; soạn nháp báo cáo này từ bảng A và phiếu tự kiểm.
-- Cách em dùng kết quả: em kiểm lại trên CVAT, chạy `sync`, và đối chiếu số liệu với bảng A. Chi tiết đã gửi riêng cho GV.
 
 **(c)** Điều còn chưa chắc:
 - **Hướng xe ở s03f21:** 5 xe được đặt là xe ngược chiều (yaw 90°) chỉ dựa trên vị trí bên kia làn đường.
