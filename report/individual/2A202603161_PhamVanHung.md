@@ -113,7 +113,7 @@ Hai cảnh báo còn lại em giữ nguyên:
 
 Lý do: điểm ngoài mép là bụi cây hoặc xe bên cạnh, không thuộc vật. Kéo hộp ra để hết cờ sẽ làm hộp sai kích thước.
 
-Đổi kiểm với **2A202603168**: Cùng kiểm pointcloud/s02f12.pcd, sự khác biệt về bạn kiểm chéo có đánh người ở dải phân cách, tuy nhiên mình không thấy nên mâu thuẫn không gán
+Đổi kiểm với **2A202603168**: Cùng kiểm pointcloud/s02f21.pcd, sự khác biệt về bạn kiểm chéo có đánh người ở dải phân cách, tuy nhiên mình không thấy nên mâu thuẫn không gán
 
 ## 6. Ý nghĩa của nhãn, cách dùng AI và điều còn chưa chắc
 **(a)** Model 3D dùng nhãn này để học vị trí và kích thước thật của vật theo mét quanh xe. Đó là thứ hệ thống lái cần để tính khoảng cách an toàn, còn kích thước tính bằng pixel thay đổi theo khoảng cách nên không dùng được. Vật thưa điểm cần quy tắc riêng: nếu đoán bừa hộp cho vài điểm thì model học ra hộp sai, còn bỏ sót vô tội vạ thì model học cách bỏ qua vật thật; quy tắc 15–20% thể tích và LOW_VISIBILITY giữ cho nhãn nhất quán.
